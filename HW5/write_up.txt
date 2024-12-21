@@ -1,0 +1,37 @@
+<!-- NAME : Ilyes Abdellatif Bouazza
+EMAIL : ilyesabdellatif_bouazza@student.uml.edu
+HW5: Bit of scrabble game
+DATE : 12/18/2024
+DESCRIPTION : The purposes of this assignment are to have additional experience
+working with the jQuery UI and to pull together much of what we’ve
+been doing throughout the semester. You are to implement a bit of the
+game of Scrabble using drag-and-drop. The idea is to display one
+line of the Scrabble board (one line sample) to the user along with
+seven letter tiles on a tile rack. The user then drags tiles to the board
+to make a word, and you are to report his or her score, taking the letter
+values and bonus squares into consideration -->
+
+
+This Scrabble game was built to meet all the outlined requirements, ensuring functionality, clarity, and adherence to Scrabble’s official rules. Additionally, a dictionary lookup feature was added as extra credit, enhancing the game’s validity and user experience. Here’s a breakdown of how each feature was implemented in the provided code.
+
+The player’s "hand" of letter tiles is randomly selected from a predefined data structure called this.pieces. This structure stores the proper distribution of tiles (e.g., 12 "E" tiles, 1 "Q" tile). The getRandomTilesWithCount function handles the selection of tiles while respecting their available amounts. Each time a tile is drawn, its count in the this.pieces array is reduced, ensuring no tile is overdrawn. This approach ensures randomness while adhering to the official Scrabble rules.
+
+Drag-and-drop functionality is implemented using jQuery UI. The makeTilesDraggable function allows tiles to be moved freely, while the makeBoardSquaresDroppable function enables specific board squares to accept tiles. If a tile is dropped outside valid areas, it automatically snaps back to its original position in the rack, ensuring the game flow remains smooth and intuitive. This validation is built into the revert property of jQuery UI.
+
+To track tiles placed on the board, each square is assigned a unique data-index attribute when the board is generated. When a tile is dropped, its data-letter and value attributes are associated with the square’s index. This mapping is crucial for calculating scores and validating words later in the game.
+
+Special board squares like double-letter and double-word are supported using CSS classes (.double-letter and .double-word). When calculating scores in the calculateScore method, these bonuses are applied. For example, double-letter squares multiply the tile’s value, and double-word squares multiply the total word score. This ensures the scoring system accurately reflects the mechanics of the Scrabble game.
+
+The calculateScore function dynamically calculates the total score for the current word based on the tiles placed and any bonus squares. The player’s score is updated and displayed in real time, providing instant feedback. Additionally, the calculateHighestScore function keeps track of the highest score achieved across all rounds, ensuring players can track their progress.
+
+The game allows players to continue forming words until they decide to quit or run out of tiles. The "Next Word" button clears the board and replenishes the rack while preserving the overall state of the game, such as the highest score and remaining tiles. The nextWord function manages this process. It ensures the player’s rack always contains 7 tiles (or as many as are left in the bag).
+
+The program enforces proper placement of tiles. Players can only drag tiles from the rack to the board, and tiles revert back to the rack if dropped elsewhere. Tiles placed on the board can also be moved back to the rack for rearrangement. This behavior is handled by the makeTilesDraggable and makeRackDroppable functions, which align tiles in the rack properly when returned.
+
+Additionally, the game ensures valid tile placement on the board. The first tile can be placed anywhere, but subsequent tiles must be placed adjacent to existing tiles. The makeBoardSquaresDroppable function validates this adjacency by checking neighboring squares. If no valid placement is detected, the tile reverts to the rack.
+
+As an extra credit feature, the game incorporates a dictionary lookup to validate the player’s word. The isWordInDictionary function reads a words.txt file containing a list of valid words. When the player forms a word, this function checks if the word exists in the dictionary. If the word is valid, the validation rules are updated to reflect this. This feature adds an extra layer of realism and challenge, ensuring players can only score with legitimate words.
+
+The game also provides a "Start Over" button, allowing players to restart at any time. The startOver function resets the game state, including the scores, word, and rack. It clears the board and refills the rack with a new set of tiles while resetting the tile bag to its original state.
+
+In summary, the Scrabble game implements all required features in a clean, efficient manner. The program includes essential features like random tile selection, drag-and-drop functionality, score calculation, word validation, and tile placement rules. The extra credit dictionary lookup feature further enhances the game’s integrity by ensuring only valid words can be played. By combining jQuery UI with clear logic, the game delivers an interactive and engaging experience while maintaining the integrity of Scrabble’s gameplay rules

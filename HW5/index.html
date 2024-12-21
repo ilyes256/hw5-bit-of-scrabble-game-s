@@ -1,0 +1,101 @@
+<!-- NAME : Ilyes Abdellatif Bouazza
+EMAIL : ilyesabdellatif_bouazza@student.uml.edu
+HW5: Bit of scrabble game
+DATE : 12/18/2024
+FILE : index.html
+DESCRIPTION : The purposes of this assignment are to have additional experience
+working with the jQuery UI and to pull together much of what we’ve
+been doing throughout the semester. You are to implement a bit of the
+game of Scrabble using drag-and-drop. The idea is to display one
+line of the Scrabble board (one line sample) to the user along with
+seven letter tiles on a tile rack. The user then drags tiles to the board
+to make a word, and you are to report his or her score, taking the letter
+values and bonus squares into consideration -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Single-Player Scrabble</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  </head>
+  <body>
+    <h1>A Bit Of The Game Of Scrabble</h1>
+    <div id="game-ui">
+      <!-- Word Display and Score -->
+      <div id="status-bar">
+        <div id="current-word">
+          <strong>Word:</strong> <span id="word-display">------------</span>
+        </div>
+        <div id="score-info">
+          <strong>Score:</strong> <span id="current-score">0</span>
+          <strong>Highest Score:</strong> <span id="highest-score">0</span>
+          <strong>Remaining Tiles:</strong>
+          <span id="remaining-tiles">100</span>
+        </div>
+      </div>
+
+      <!-- Board Area -->
+      <div id="scrabble-board" class="board-container">
+        <!-- Dynamically generated tiles and special squares -->
+      </div>
+
+      <!-- Validation Rules -->
+      <div id="validation-rules">
+        <p id="rule-no-gap">
+          Create one word with no gap between letters.
+          <span class="status-check">❌</span>
+        </p>
+        <p id="rule-min-letters">
+          The word must contain at least 2 letters.
+          <span class="status-check">❌</span>
+        </p>
+        <p id="rule-found-dictionary">
+          The word must be found in the dictionary.
+          <span class="status-check">❌</span>
+        </p>
+      </div>
+
+      <!-- Game Controls -->
+      <div id="game-controls">
+        <button id="next-word" disabled>Next Word</button>
+        <button id="start-over">Start Over</button>
+      </div>
+
+      <!-- Tile Rack -->
+      <div class="tile-rack-container">
+        <img
+          src="resources/scrabble-tile-holder-406774_640.png"
+          alt="Tile Rack"
+          class="tile-rack-background"
+        />
+        <div class="tile-container">
+          <!-- Dynamically populated tiles -->
+        </div>
+      </div>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
+
+<!-- sources : 
+https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/ScrabbleBoard.jpg
+https://d1b10bmlvqabco.cloudfront.net/attach/icm9jynacvn5kx/i5ic1b2hwmz6nv/ihf34c9jbxpw/Scrabble_Board_OneLine.png
+https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/Scrabble_LetterTiles.png
+https://pixabay.com/static/uploads/photo/2014/07/31/20/48/scrabble-tile-holder-406774_640.png
+https://www.youtube.com/watch?v=dSXSYwBBTFs&feature=youtu.be
+https://en.wikipedia.org/wiki/Scrabble
+http://yongcho.github.io/GUI-Programming-1/assignment9.html
+https://www.scrabblewizard.com/scrabble-tile-distribution/
+The provided zip (graphics_data.zip)
+https://jqueryui.com/
+https://d1b10bmlvqabco.cloudfront.net/attach/icm9jynacvn5kx/i5ic1b2hwmz6nv/ihf34c9jbxpw/Scrabble_Board_OneLine.png
+https://gist.github.com/WChargin/8927565 -->

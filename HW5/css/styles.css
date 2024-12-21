@@ -1,0 +1,344 @@
+/* NAME : Ilyes Abdellatif Bouazza
+EMAIL : ilyesabdellatif_bouazza@student.uml.edu
+HW5: Bit of scrabble gamme
+DATE : 12/18/2024
+FILE : styles.css
+DESCRIPTION : The purposes of this assignment are to have additional experience
+working with the jQuery UI and to pull together much of what we’ve
+been doing throughout the semester. You are to implement a bit of the
+game of Scrabble using drag-and-drop. The idea is to display one
+line of the Scrabble board (one line sample) to the user along with
+seven letter tiles on a tile rack. The user then drags tiles to the board
+to make a word, and you are to report his or her score, taking the letter
+values and bonus squares into consideration */
+
+
+
+body {
+    padding: 20px;
+    background-color: #edece8;
+}
+
+h1 {
+    margin: 0 auto;
+    /* Center the element horizontally */
+    width: fit-content;
+    /* Ensure the width matches the content */
+    text-align: center;
+    /* Align text inside the h1 element */
+    margin-bottom: 80px;
+    color: #8B4513;
+}
+
+#status-bar {
+    display: flex;
+    /* Use flexbox for alignment */
+    flex-direction: column;
+    /* Stack items vertically */
+    align-items: center;
+    /* Center items horizontally */
+    justify-content: center;
+    /* Center items vertically */
+    background-color: #f8f9fa;
+    /* Light background for better visibility */
+    border: 2px solid blanchedalmond;
+    /* Add a border with a nice color */
+    border-radius: 8px;
+    /* Rounded corners */
+    padding: 20px;
+    /* Add spacing inside the container */
+    margin: 20px auto;
+    /* Center the container and add top/bottom margins */
+    width: fit-content;
+    /* Adjust width to fit the content */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for a 3D effect */
+    font-family: 'Arial', sans-serif;
+    /* Use a clean font */
+}
+
+#status-bar div {
+    margin: 5px 0;
+    /* Add spacing between lines */
+}
+
+#status-bar strong {
+    color: #343a40;
+    /* Dark color for text labels */
+    font-weight: bold;
+    /* Make labels stand out */
+}
+
+#status-bar span {
+    color: #007BFF;
+    /* Add a complementary color for dynamic text */
+    font-weight: bold;
+    /* Emphasize important values */
+}
+
+
+.board-container {
+    position: relative;
+    /* Add relative positioning for tiles */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    /* Small spacing between tiles */
+    margin: 10px auto 20px;
+    /* Center the board and add bottom spacing */
+    width: fit-content;
+    /* Adjust to fit the content */
+}
+
+#scrabble-board .square {
+    position: relative;
+    /* Ensure dropped tiles are positioned relative to squares */
+    width: 100px;
+    /* Tile width */
+    height: 110px;
+    /* Tile height */
+    /* padding: 4px; */
+    object-fit: cover;
+    /* Ensure images fit nicely */
+    /* border: 1px solid black; Optional border for clarity */
+    /* overflow: visible; Prevent overflow in case of tile misplacement */
+}
+
+/* Highlight effect for valid drop areas */
+.square.highlight {
+    border: 4px solid green;
+    background-color: rgba(0, 255, 0, 0.2);
+    /* Slight highlight for clarity */
+    box-sizing: border-box;
+    /* Ensures the border is inside the element's dimensions */
+}
+
+.highlight-rack {
+    border: 4px solid #8B4513;
+    /* Wood brown */
+    background-color: rgba(139, 69, 19, 0.2);
+    /* Light brown overlay */
+    box-sizing: border-box;
+}
+
+
+.tile-rack-container {
+    position: relative;
+    width: 758px;
+    /* For 7 tiles: (7 * 100px + 6 * 4px gaps) */
+    height: 140px;
+    /* Match the height of the rack background */
+    margin: 20px auto;
+    /* Center the rack */
+    background-color: transparent;
+    /* No additional background */
+}
+
+.tile-rack-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Cover the full container width */
+    height: 100%;
+    /* Cover the full container height */
+    object-fit: cover;
+    /* Ensure proper scaling */
+}
+
+.tile-container {
+    position: absolute;
+    /* Position tiles relative to the rack */
+    top: 15px;
+    /* Adjust alignment to the rack slots */
+    left: 14px;
+    /* Adjust alignment horizontally */
+    display: flex;
+    /* Align tiles in a row */
+    gap: 8px;
+    /* Spacing between tiles */
+}
+
+.square {
+    width: 100px;
+    /* Tile width */
+    height: 110px;
+    /* Tile height */
+    object-fit: cover;
+    /* Ensure images fit nicely */
+    /* border: 1px solid black; Optional border for clarity */
+}
+
+/* Special squares */
+.double-letter {
+    background-color: lightblue;
+}
+
+.double-word {
+    background-color: pink;
+}
+
+/* Validation rules styling */
+#validation-rules p {
+    font-size: 16px;
+    margin: 0 auto
+}
+
+.status-check {
+    color: green;
+    font-weight: bold;
+}
+
+/* Button styling */
+#next-word:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+#next-word,
+#start-over {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+#next-word:hover:not(:disabled),
+#start-over:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+
+    .board-container,
+    .tile-rack-container {
+        flex-direction: row;
+        /* Always maintain a row layout */
+        align-items: center;
+        width: auto;
+        /* Keep the width adaptive to the content */
+    }
+
+    .tile-container {
+        justify-content: center;
+        flex-wrap: nowrap;
+        /* Prevent wrapping to new rows */
+    }
+
+    .square {
+        width: 100px;
+        /* Maintain original size */
+        height: 110px;
+    }
+}
+
+
+/* Validation Rules Styling */
+#validation-rules {
+    text-align: center;
+    /* Center align the text */
+    background-color: #f8f9fa;
+    /* Light background for clarity */
+    border: 2px solid blanchedalmond;
+    /* Add a border with a nice color */
+    border-radius: 8px;
+    /* Rounded corners */
+    padding: 20px;
+    /* Internal spacing */
+    margin: 20px auto;
+    /* Center the block with margins */
+    max-width: 600px;
+    /* Restrict the width for better readability */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for 3D effect */
+    font-family: 'Arial', sans-serif;
+    /* Clean font */
+}
+
+#validation-rules p {
+    font-size: 16px;
+    /* Increase readability */
+    margin: 10px 0;
+    /* Add spacing between rules */
+    color: #343a40;
+    /* Dark color for text */
+}
+
+.status-check {
+    font-size: 18px;
+    /* Slightly larger for visibility */
+    font-weight: bold;
+    /* Make the symbols stand out */
+}
+
+/* Game Controls Styling */
+#game-controls {
+    display: flex;
+    /* Align buttons horizontally */
+    justify-content: center;
+    /* Center the buttons */
+    gap: 20px;
+    /* Space between buttons */
+    margin: 20px auto;
+    /* Center the block with margins */
+    padding: 10px;
+    /* Add internal spacing */
+    max-width: 600px;
+    /* Restrict the width */
+}
+
+#game-controls button {
+    padding: 10px 20px;
+    /* Comfortable button size */
+    font-size: 16px;
+    /* Readable text size */
+    border: none;
+    /* Remove default borders */
+    border-radius: 8px;
+    /* Rounded corners */
+    background-color: #007BFF;
+    /* Blue button background */
+    color: white;
+    /* White text for contrast */
+    cursor: pointer;
+    /* Pointer cursor for interactivity */
+    transition: background-color 0.3s ease;
+    /* Smooth hover effect */
+}
+
+#game-controls button:hover:not(:disabled) {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+}
+
+#game-controls button:disabled {
+    background-color: #ccc;
+    /* Gray background for disabled state */
+    cursor: not-allowed;
+    /* Not-allowed cursor for disabled buttons */
+    opacity: 0.7;
+    /* Slightly faded look */
+}
+
+
+/* sources : 
+https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/ScrabbleBoard.jpg
+https://d1b10bmlvqabco.cloudfront.net/attach/icm9jynacvn5kx/i5ic1b2hwmz6nv/ihf34c9jbxpw/Scrabble_Board_OneLine.png
+https://jesseheines.com/~heines/91.461/91.461-2015-16f/461-assn/Scrabble_LetterTiles.png
+https://pixabay.com/static/uploads/photo/2014/07/31/20/48/scrabble-tile-holder-406774_640.png
+https://www.youtube.com/watch?v=dSXSYwBBTFs&feature=youtu.be
+https://en.wikipedia.org/wiki/Scrabble
+http://yongcho.github.io/GUI-Programming-1/assignment9.html
+https://www.scrabblewizard.com/scrabble-tile-distribution/
+The provided zip (graphics_data.zip)
+https://jqueryui.com/
+https://d1b10bmlvqabco.cloudfront.net/attach/icm9jynacvn5kx/i5ic1b2hwmz6nv/ihf34c9jbxpw/Scrabble_Board_OneLine.png
+https://gist.github.com/WChargin/8927565 */
